@@ -11,6 +11,10 @@ BOT_NAME = 'amazon'
 SPIDER_MODULES = ['amazon.spiders']
 NEWSPIDER_MODULE = 'amazon.spiders'
 AUTOTHROTTLE_ENABLED = True
+DOWNLOADER_MIDDLEWARES = {
+    'amazon.middlewares.RandomUserAgentMiddleware': 543,
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+}
 
 # import randmo
 mac_os_user_agents = [

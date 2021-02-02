@@ -1,7 +1,6 @@
 import scrapy
 from scrapy import Request
 from amazon.config.asins import asin_list, reviews_base_url
-from scrapy.shell import inspect_response
 import re
 
 

@@ -9,6 +9,36 @@ from scrapy import signals
 from itemadapter import is_item, ItemAdapter
 
 
+from scrapy import signals
+from random import choice
+
+
+class RandomUserAgentMiddleware:
+    """Rotates User Agents"""
+
+    def __init__(self, user_agents):
+        self.user_agents = user_agents
+        self.ransom_user_agent = True
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        user_agents = crawler.settings.get('USER_AGENT_LIST', [])
+        o = cls(user_agents)
+        crawler.signals.connect(o.spider_opened, signal=signals.spider_opened)
+        return o
+
+    def spider_opened(self, spider):
+        self.ransom_user_agent = getattr(spider, 'ransom_user_agent', self.ransom_user_agent)
+        if not self.ransom_user_agent:
+            self.user_agent = getattr(spider, 'user_agent', self.user_agent)
+
+    def process_request(self, request, spider):
+        if self.ransom_user_agent:
+            request.headers['user-agent'] = choice(self.user_agents)
+        elif self.user_agent:
+            request.headers.setdefault(b'User-Agent', self.user_agent)
+
+
 class AmazonSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
