@@ -42,7 +42,8 @@ class ReviewsSpider(scrapy.Spider):
             item['ReviewedAt'] = place
 
             item['URL'] = response.url
-            item['Review'] = review.xpath('normalize-space(.//*[@data-hook="review-body"])').get()
+            # item['Review'] = review.xpath('normalize-space(.//*[@data-hook="review-body"])').get()
+            item['Review'] = review.css('[data-hook="review-body"]::text').get()
 
             yield item
 
