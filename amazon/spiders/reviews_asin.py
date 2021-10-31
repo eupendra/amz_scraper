@@ -42,8 +42,11 @@ class ReviewsSpider(scrapy.Spider):
             item['ReviewedAt'] = place
 
             item['URL'] = response.url
-            # item['Review'] = review.xpath('normalize-space(.//*[@data-hook="review-body"])').get()
-            item['Review'] = review.css('[data-hook="review-body"]::text').get()
+            review_text = review.css('[data-hook="review-body"] span::text').getall()
+            for i, text in enumerate(review_text):
+                review_text[i] = text.strip('\n').strip('\r').strip('\t').strip()
+            item['Review'] = '\n'.join(review_text)
+
 
             yield item
 

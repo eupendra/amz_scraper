@@ -15,7 +15,7 @@ DOWNLOADER_MIDDLEWARES = {
     'amazon.middlewares.RandomUserAgentMiddleware': 543,
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
 }
-
+FEED_EXPORT_ENCODING="utf-8"
 # import randmo
 mac_os_user_agents = [
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15',
