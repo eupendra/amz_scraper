@@ -1,4 +1,6 @@
+
 # Editor Files
+.idea/
 .vscode/
 .output/
 # Byte-compiled / optimized / DLL files

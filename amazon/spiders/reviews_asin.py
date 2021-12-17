@@ -1,6 +1,6 @@
 import scrapy
 from scrapy import Request
-from amazon.config.asins import asin_list, reviews_base_url
+from amazon.config.asins import products, reviews_base_url
 import re
 
 
@@ -20,7 +20,7 @@ class ReviewsSpider(scrapy.Spider):
     name = 'reviews'
 
     def start_requests(self):
-        for asin in asin_list:
+        for asin in products:
             yield Request(reviews_base_url.format(asin), meta={'asin': asin})
 
     def parse(self, response):
